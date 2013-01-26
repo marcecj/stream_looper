@@ -1,0 +1,17 @@
+.*
+*~
+
+# ignore various binary files
+*.o
+rapid_looper
+
+# ignore generated code
+*.cc
+*.cpp
+
+# ignore generated documentation
+
+*-mdoc/
+
+# ignore WAV files
+*.wav

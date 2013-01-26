@@ -5,6 +5,7 @@ env_vars.AddVariables(
                  "sndfile",
                  ["sndfile", "pa-qt", "pa-gtk", "jack-qt", "jack-gtk"]),
     BoolVariable("osc", "Use Open Sound Control (OSC)", False),
+    BoolVariable("openmp", "Use OpenMP pragmas", False),
     ("FAUST_FLAGS", "Faust compiler flags"),
     ("CXX", "The C++ compiler")
 )
@@ -20,6 +21,14 @@ if env["osc"]:
         LIBPATH = ["/usr/lib/faust"],
         # NOTE: The order matters!
         LIBS = ["OSCFaust", "oscpack"],
+    )
+
+if env["openmp"]:
+
+    env.Append(
+        CCFLAGS = ["-fopenmp"],
+        FAUST_FLAGS = ["-omp"],
+        LIBS = ["gomp"],
     )
 
 if env["FAUST_ARCHITECTURE"] == "pa-qt":

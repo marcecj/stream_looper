@@ -8,13 +8,16 @@ declare copyright   "(c)Marc Joliet 2013";
 x0 = 0.0;
 N  = 2<<14;
 
+// helper functions
+lp(c) = (+ : *(c)) ~ *(1-c);
+
 // UI control elements
 P  = vslider("Period", N, 1, N, 1):int;
+S  = vslider("Start", 1, 1, N, 1):-(1):lp(0.5):int;
 
 // write and read pointer
 nx = +(1) ~ %(N) : -(1);
-ny = +(1) ~ (_,(N,P:min): %) : -(1);
-/* ny = +(1) ~ %(N) : -(1); */
+ny = +(1) ~ %(min(N,P)) : -(1) : +(S) : %(N);
 
 mytable = N+1, x0, nx, _, ny : rwtable;
 

@@ -14,6 +14,7 @@ lp(c) = (+ : *(c)) ~ *(1-c);
 // UI control elements
 P  = vslider("Period", N, 1, N, 1):int;
 S  = vslider("Start", 1, 1, N, 1):-(1):lp(0.5):int;
+bypass  = checkbox("Bypass");
 sliders = hgroup("", P, S);
 
 // write and read pointer
@@ -22,4 +23,6 @@ ny(P,S) = +(1) ~ %(min(N,P)) : -(1) : +(S) : %(N);
 
 mytable = _,sliders : (N+1, x0, nx, _, ny : rwtable);
 
-process = mytable, mytable;
+table_select = bypass, mytable, _ : select2;
+
+process = (_ <: table_select), (_ <: table_select);

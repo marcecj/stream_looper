@@ -17,12 +17,19 @@ pause   = checkbox("Pause Recording");
 bypass  = checkbox("Bypass");
 sliders = hgroup("", P, S);
 
-// write and read pointer
+// write and read pointers
+//
+// When the "pause" checkbox is checked, the write pointer is set to N, which is
+// outside of the read pointer range. This effectively pauses recording, i.e.
+// makes the table static.
 nw = pause, (+(1) ~ %(N) : -(1)), N : select2;
 nr(P,S) = +(1) ~ %(min(N,P)) : -(1) : +(S) : %(N);
 
+// the read/write table and its controls
 rec_table = _, sliders : (N+1, x0, nw, _, nr : rwtable);
 
+// If the "bypass" checkbox is checked, the table is bypassed and the input
+// signal is just forwarded through.
 table_select = _ <: bypass, rec_table, _ : select2;
 
 process = table_select, table_select;

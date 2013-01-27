@@ -14,11 +14,12 @@ lp(c) = (+ : *(c)) ~ *(1-c);
 // UI control elements
 P  = vslider("Period", N, 1, N, 1):int;
 S  = vslider("Start", 1, 1, N, 1):-(1):lp(0.5):int;
+pause   = checkbox("Pause");
 bypass  = checkbox("Bypass");
 sliders = hgroup("", P, S);
 
 // write and read pointer
-nx = +(1) ~ %(N) : -(1);
+nx = pause, (+(1) ~ %(N) : -(1)), N : select2;
 ny(P,S) = +(1) ~ %(min(N,P)) : -(1) : +(S) : %(N);
 
 mytable = _,sliders : (N+1, x0, nx, _, ny : rwtable);

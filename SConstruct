@@ -1,12 +1,12 @@
 env_vars = Variables()
 env_vars.AddVariables(
     EnumVariable("FAUST_ARCHITECTURE",
-                 "The Faust architecture",
+                 "The FAUST architecture",
                  "sndfile",
                  ["sndfile", "pa-qt", "pa-gtk", "jack-qt", "jack-gtk"]),
     BoolVariable("osc", "Use Open Sound Control (OSC)", False),
     BoolVariable("openmp", "Use OpenMP pragmas", False),
-    ("FAUST_FLAGS", "Faust compiler flags"),
+    ("FAUST_FLAGS", "FAUST compiler flags"),
     ("CXX", "The C++ compiler")
 )
 

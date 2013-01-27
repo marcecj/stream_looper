@@ -12,7 +12,7 @@ N  = 2<<14;
 
 // UI control elements
 P  = vslider("Period", N, 1, N, 1):int;
-S  = vslider("Start", 1, 1, N, 1):-(1):smooth(0.999):int;
+S  = vslider("Start", 1, 1, N, 1):-(1):smooth(0.999):+(0.5):int;
 pause   = checkbox("Pause Recording");
 bypass  = checkbox("Bypass");
 sliders = hgroup("", P, S);

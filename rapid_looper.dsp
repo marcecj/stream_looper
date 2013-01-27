@@ -21,8 +21,8 @@ sliders = hgroup("", P, S);
 nw = pause, (+(1) ~ %(N) : -(1)), N : select2;
 nr(P,S) = +(1) ~ %(min(N,P)) : -(1) : +(S) : %(N);
 
-rec_table = _,sliders : (N+1, x0, nw, _, nr : rwtable);
+rec_table = _, sliders : (N+1, x0, nw, _, nr : rwtable);
 
-table_select = bypass, rec_table, _ : select2;
+table_select = _ <: bypass, rec_table, _ : select2;
 
-process = (_ <: table_select), (_ <: table_select);
+process = table_select, table_select;

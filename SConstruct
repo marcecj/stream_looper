@@ -80,17 +80,17 @@ if env["CXX"] == "g++" and env["CXXVERSION"] >= "4.5":
         "-floop-block",
     ])
 
-rapid_looper_src = [env.Faust("rapid_looper.dsp")]
+stream_looper_src = [env.Faust("stream_looper.dsp")]
 if env["FAUST_ARCHITECTURE"] in ("jack-qt", "pa-qt"):
-    rapid_looper_src.append(faustqt)
-rapid_looper = env.Program(rapid_looper_src)
+    stream_looper_src.append(faustqt)
+stream_looper = env.Program(stream_looper_src)
 
-doc = env.PDF("rapid_looper-mdoc/pdf/rapid_looper.pdf",
-              "rapid_looper-mdoc/tex/rapid_looper.tex")
+doc = env.PDF("stream_looper-mdoc/pdf/stream_looper.pdf",
+              "stream_looper-mdoc/tex/stream_looper.tex")
 
-env.Alias("rapid_looper", rapid_looper)
+env.Alias("stream_looper", stream_looper)
 env.Alias("doc", doc)
 
-Default("rapid_looper")
+Default("stream_looper")
 
-env.Clean(rapid_looper, "rapid_looper-mdoc")
+env.Clean(stream_looper, "stream_looper-mdoc")

@@ -3,7 +3,7 @@
 
 # ignore various binary files
 *.o
-rapid_looper
+stream_looper
 
 # ignore generated code
 *.cc

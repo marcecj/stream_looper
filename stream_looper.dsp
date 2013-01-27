@@ -1,4 +1,4 @@
-declare name        "Rapid Looper";
+declare name        "Stream Looper";
 declare version     "0.1";
 declare author      "Marc Joliet";
 declare license     "MIT";

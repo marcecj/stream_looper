@@ -10,8 +10,11 @@ env_vars.AddVariables(
     ("CXX", "The C++ compiler")
 )
 
-env = Environment(tools=["default", "qt4", "faust"],
+env = Environment(tools=["default", "faust"],
                   variables=env_vars)
+
+if env["FAUST_ARCHITECTURE"].endswith("qt"):
+    env.Tool("qt4")
 
 if env["osc"]:
 

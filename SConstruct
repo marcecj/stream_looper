@@ -4,6 +4,7 @@ valid_faust_arches = (
     "pa-gtk",
     "jack-qt",
     "jack-gtk",
+    "puredata",
 )
 
 env_vars = Variables()
@@ -93,7 +94,16 @@ if env["CXX"] == "g++" and env["CXXVERSION"] >= "4.5":
 stream_looper_src = [env.Faust("stream_looper.dsp")]
 if env["FAUST_ARCHITECTURE"] in ("jack-qt", "pa-qt"):
     stream_looper_src.append(faustqt)
-stream_looper = env.Program(stream_looper_src)
+
+if env["FAUST_ARCHITECTURE"] == "puredata":
+    env.Append(CPPDEFINES = "mydsp=stream_looper")
+    stream_looper = env.SharedLibrary(
+        stream_looper_src,
+        SHLIBPREFIX="",
+        SHLIBSUFFIX="~.pd_linux"
+    )
+else:
+    stream_looper = env.Program(stream_looper_src)
 
 doc = env.PDF("stream_looper-mdoc/pdf/stream_looper.pdf",
               "stream_looper-mdoc/tex/stream_looper.tex")

@@ -1,9 +1,16 @@
+valid_faust_arches = (
+    "sndfile",
+    "pa-qt",
+    "pa-gtk",
+    "jack-qt",
+    "jack-gtk",
+)
+
 env_vars = Variables()
 env_vars.AddVariables(
     EnumVariable("FAUST_ARCHITECTURE",
                  "The FAUST architecture",
-                 "sndfile",
-                 ["sndfile", "pa-qt", "pa-gtk", "jack-qt", "jack-gtk"]),
+                 "sndfile", valid_faust_arches),
     BoolVariable("osc", "Use Open Sound Control (OSC)", True),
     BoolVariable("openmp", "Use OpenMP pragmas", False),
     ("FAUST_FLAGS", "FAUST compiler flags"),

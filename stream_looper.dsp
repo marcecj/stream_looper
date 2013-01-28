@@ -17,6 +17,7 @@ Ps = vslider("Start", 1, 1, N, 1):-(1):smooth(0.999):+(0.5):int;
 Rs = vslider("Start", 1, 1, N, 1):-(1):smooth(0.999):+(0.5):int;
 pause  = checkbox("Pause Recording");
 bypass = checkbox("Bypass");
+limit_pp_by_rp = checkbox("Limit to Rec Period");
 
 // UI groups
 recording_controls = hgroup("Recording", Rp, Rs);
@@ -28,9 +29,9 @@ sliders = hgroup("", recording_controls, playback_controls);
 // When the "pause" checkbox is checked, the write pointer is set to N, which is
 // outside of the read pointer range. This effectively pauses recording, i.e.
 // makes the table static.
-shifted_counter(P,S) = +(1) ~ %(P) : -(1) : +(S) : %(N);
-nw(P,S) = pause, shifted_counter(P,S), N : select2;
-nr(P,S) = shifted_counter(P,S);
+shifted_counter(P1,P2,S) = +(1) ~ %(min(P1,P2)) : -(1) : +(S) : %(N);
+nw(P,S) = pause, shifted_counter(P,P,S), N : select2;
+nr(P,S) = P, select2(limit_pp_by_rp, P, (sliders:_,!,!,!)), S : shifted_counter;
 
 // the read/write table and its controls
 write_control = sliders : _,_,!,! : nw;

@@ -24,12 +24,11 @@ sliders = hgroup("", R, P, S);
 // outside of the read pointer range. This effectively pauses recording, i.e.
 // makes the table static.
 nw(R) = pause, (+(1) ~ %(R) : -(1)), N : select2;
-nr(R,P,S) = +(1) ~ %(min(R,P)) : -(1) : +(S) : %(N);
+nr(P,S) = +(1) ~ %(P) : -(1) : +(S) : %(N);
 
 // the read/write table and its controls
 swap = _,_ <: !,_,_,!;
-dup = _ <: _,_;
-rec_table = _, sliders : _,dup,_,_ : swap,_,_,_ : (N+1, x0, nw, _, nr : rwtable);
+rec_table = _, sliders : swap,_,_ : (N+1, x0, nw, _, nr : rwtable);
 
 // If the "bypass" checkbox is checked, the table is bypassed and the input
 // signal is just forwarded through.

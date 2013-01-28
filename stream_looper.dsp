@@ -11,24 +11,31 @@ x0 = 0.0;
 N  = 2<<14;
 
 // UI control elements
-P  = vslider("Period (play)", N, 1, N, 1):int;
-R  = vslider("Period (rec)", N, 1, N, 1):int;
-S  = vslider("Start", 1, 1, N, 1):-(1):smooth(0.999):+(0.5):int;
-pause   = checkbox("Pause Recording");
-bypass  = checkbox("Bypass");
-sliders = hgroup("", R, P, S);
+Pp = vslider("Period", N, 1, N, 1):int;
+Rp = vslider("Period", N, 1, N, 1):int;
+Ps = vslider("Start", 1, 1, N, 1):-(1):smooth(0.999):+(0.5):int;
+Rs = vslider("Start", 1, 1, N, 1):-(1):smooth(0.999):+(0.5):int;
+pause  = checkbox("Pause Recording");
+bypass = checkbox("Bypass");
+
+// UI groups
+recording_controls = hgroup("Recording", Rp, Rs);
+playback_controls  = hgroup("Playback", Pp, Ps);
+sliders = hgroup("", recording_controls, playback_controls);
 
 // write and read pointers
 //
 // When the "pause" checkbox is checked, the write pointer is set to N, which is
 // outside of the read pointer range. This effectively pauses recording, i.e.
 // makes the table static.
-nw(R) = pause, (+(1) ~ %(R) : -(1)), N : select2;
-nr(P,S) = +(1) ~ %(P) : -(1) : +(S) : %(N);
+shifted_counter(P,S) = +(1) ~ %(P) : -(1) : +(S) : %(N);
+nw(P,S) = pause, shifted_counter(P,S), N : select2;
+nr(P,S) = shifted_counter(P,S);
 
 // the read/write table and its controls
-swap = _,_ <: !,_,_,!;
-rec_table = _, sliders : swap,_,_ : (N+1, x0, nw, _, nr : rwtable);
+write_control = sliders : _,_,!,! : nw;
+play_control  = sliders : !,!,_,_ : nr;
+rec_table = N+1, x0, write_control, _, play_control : rwtable;
 
 // If the "bypass" checkbox is checked, the table is bypassed and the input
 // signal is just forwarded through.

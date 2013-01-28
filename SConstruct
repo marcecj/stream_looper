@@ -4,7 +4,7 @@ env_vars.AddVariables(
                  "The FAUST architecture",
                  "sndfile",
                  ["sndfile", "pa-qt", "pa-gtk", "jack-qt", "jack-gtk"]),
-    BoolVariable("osc", "Use Open Sound Control (OSC)", False),
+    BoolVariable("osc", "Use Open Sound Control (OSC)", True),
     BoolVariable("openmp", "Use OpenMP pragmas", False),
     ("FAUST_FLAGS", "FAUST compiler flags"),
     ("CXX", "The C++ compiler")

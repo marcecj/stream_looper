@@ -3,7 +3,9 @@
 
 # ignore various binary files
 *.o
+*.os
 stream_looper
+*.pd_*
 
 # ignore generated code
 *.cc

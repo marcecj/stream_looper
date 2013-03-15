@@ -41,7 +41,7 @@ architecture is jack-qt, see the output of `scons --help` for more information.
 This relies on an externally available FAUST SCons tool that I found
 [here](https://github.com/kaoskorobase/skUG/blob/master/site_scons/site_tools/faust.py).
 
-Of course, you can always just use any of the myriad of faust2\* scripts that
+Of course, you can always just use any of the myriad of `faust2*` scripts that
 are distributed with FAUST.  This requires more knowledge of the FAUST options,
 though (see `faust --help`).
 
@@ -116,8 +116,8 @@ I still want to following features:
   or similar unit. Ideally, "Pause Recording" will wait until the bar is
   finished before pausing.
 - Perhaps add a slider to control the amount of smoothing on the "Start" slider.
-- Add LV2 support to the build system. Until then, use the faust2lv2 script that
-  comes with FAUST.
+- Add LV2 support to the build system. Until then, use the `faust2lv2` script
+  that comes with FAUST.
 - Maybe create a MIDI version of the Pd UI.
 - Fix the artifacts that arise when changing the write period. Possible
   solutions (disregarding implementation):

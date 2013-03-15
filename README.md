@@ -29,8 +29,8 @@ pre-existing samplers/sequencers.
 
 ## Compilation
 
-You can either use the provided SCons based build system, whose invocation in
-this case is simply
+You can either use the provided [SCons](http://scons.org) based build system,
+whose invocation in this case is simply
 
     scons
 

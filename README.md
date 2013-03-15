@@ -32,6 +32,12 @@ pre-existing samplers/sequencers.
 As mentioned above, Stream Looper works by recording an input signal into an
 internal buffer and looping within that buffer.  Playback never stops.
 
+### UI-independent Controls
+
+FAUST can generate various types of programs, and they will share the same
+controls, be it as command-line options, Pd messages, or graphical sliders.  The
+following description holds for _all_ of them.
+
 You can control two things: the way the loop is played, and the way it is
 recorded.  Specifically, you control the region within the buffer in which the
 read and write pointers loop.  In both cases, there there are two sliders to
@@ -56,6 +62,30 @@ Furthermore, there are three check boxes:
   period.  This is so you can decrease the write pointer period and not have old
   material in the buffer start to play.
 
+### RumblePad 2 Pure Data UI
+
+For my own use I wrote a Pd UI through which you can control Stream Looper with
+a RumblePad 2 controller.  You must compile Stream Looper with `faust2pd` or
+`scons FAUST_ARCHITECTURE=puredata ...` first before you can use it.  The
+controller mappings are set up as follows:
+
+- The left joystick controls "Period" for the playback (vertical axis) and
+  recording group (horizontal axis).
+- The right joystick controls "Start" for the playback (vertical axis) and
+  recording group (horizontal axis).
+- Button 1 switches "Pause Recording" on when held down.
+- Button 2 toggles "Bypass" every time it is pressed.
+- Button 3 toggles "Pause Recording" every time it is pressed.
+- Button 4 toggles "Limit to Rec Period" every time it is pressed.
+- Button 9 toggles whether the vertical axis of the right joystick is ignored.
+- Button 10 toggles whether the horizontal axis of the right joystick is
+  ignored.
+
+"Pause Recording" and "Limit to Rec Period" are off by default, while "Bypass"
+is on by default so that moving the joystick doesn't constantly change the
+playback.  Also, since its effects are usually unwanted, the right joystick is
+ignored by default.
+
 ## TODO
 
 I still want to following features:
@@ -66,7 +96,7 @@ I still want to following features:
 - Perhaps add a slider to control the amount of smoothing on the "Start" slider.
 - Add LV2 support to the build system. Until then, use the faust2lv2 script that
   comes with FAUST.
-- Create a simple Pd GUI
+- Maybe create a MIDI version of the Pd UI.
 - Fix the artifacts that arise when changing the write period. Possible
   solutions (disregarding implementation):
   - set both the read and write period to maximum as long as the slider is being

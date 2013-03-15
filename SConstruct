@@ -49,12 +49,12 @@ if env["FAUST_ARCHITECTURE"] == "pa-qt":
 
     env.Append(LIBS = ["portaudio"])
 
-if env["FAUST_ARCHITECTURE"] == "pa-gtk":
+elif env["FAUST_ARCHITECTURE"] == "pa-gtk":
 
     env.MergeFlags(["!pkg-config --cflags-only-I gtk+-2.0"])
     env.Append(LIBS = ["portaudio", "gtk-x11-2.0"])
 
-if env["FAUST_ARCHITECTURE"] == "jack-qt":
+elif env["FAUST_ARCHITECTURE"] == "jack-qt":
 
     env.EnableQt4Modules(["QtGui", "QtCore"])
     faustqt = env.Moc4("faustqt", "/usr/include/faust/gui/faustqt.h")

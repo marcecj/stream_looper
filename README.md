@@ -27,6 +27,24 @@ implemented it is obviously not a sampler.  It is probably best to instead
 compile Stream Looper into an LV2 plug-in and load it into one of the many
 pre-existing samplers/sequencers.
 
+## Compilation
+
+You can either use the provided SCons based build system, whose invocation in
+this case is simply
+
+    scons
+
+The SCons build system will automatically pass appropriate options to the FAUST
+compiler, such as `-vec` to produce auto-vectorisable code.  The default FAUST
+architecture is jack-qt, see the output of `scons --help` for more information.
+
+This relies on an externally available FAUST SCons tool that I found
+[here](https://github.com/kaoskorobase/skUG/blob/master/site_scons/site_tools/faust.py).
+
+Of course, you can always just use any of the myriad of faust2\* scripts that
+are distributed with FAUST.  This requires more knowledge of the FAUST options,
+though (see `faust --help`).
+
 ## Usage
 
 As mentioned above, Stream Looper works by recording an input signal into an

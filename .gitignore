@@ -10,9 +10,9 @@ stream_looper
 # ignore generated code
 *.cc
 *.cpp
+*.lv2/
 
 # ignore generated documentation
-
 *-mdoc/
 
 # ignore WAV files

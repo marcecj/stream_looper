@@ -65,9 +65,13 @@ Furthermore, there are three check boxes:
 ### RumblePad 2 Pure Data UI
 
 For my own use I wrote a Pd UI through which you can control Stream Looper with
-a RumblePad 2 controller.  You must compile Stream Looper with `faust2pd` or
-`scons FAUST_ARCHITECTURE=puredata ...` first before you can use it.  The
-controller mappings are set up as follows:
+a RumblePad 2 controller.  You must compile Stream Looper with `faust2puredata`
+or `scons FAUST_ARCHITECTURE=puredata ...` first before you can use it.
+Technically you could also use `faust2pd`, if I understand it correctly, as the
+Pd object name stays the same, but it is superfluous for the purposes of this
+UI.
+
+The controller mappings are set up as follows:
 
 - The left joystick controls "Period" for the playback (vertical axis) and
   recording group (horizontal axis).

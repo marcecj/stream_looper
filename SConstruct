@@ -114,3 +114,15 @@ env.Alias("doc", doc)
 Default("stream_looper")
 
 env.Clean(stream_looper, "stream_looper-mdoc")
+
+Help(
+"""This build system compiles Stream Looper.  To compile, use one of the
+following build targets:
+
+    stream_looper -> compile Stream Looper (default)
+
+The following environment variables can be overridden by passing them *after*
+the call to scons, e.g., "scons CC=gcc":
+"""
++ env_vars.GenerateHelpText(env)
+)

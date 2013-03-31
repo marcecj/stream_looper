@@ -97,6 +97,23 @@ the available addresses, their current values and their value range by sending a
 NOTE: the double slash for the first four addresses arise from the use of an
 unnamed `hgroup()`.
 
+### MIDI controls
+
+In addition to the controls available via OSC, all of the parameters can be
+controlled via MIDI CC messages, at least for the FAUST architectures that make
+use of the UI element meta-data.  In FAUST version 0.9.58, these are, as far as
+I can tell: dssi, lv2, lv2synth, ms-jack-gtk and vsti-mono.
+
+The CC# to UI control mapping is:
+
+- 0 maps to "Playback Period"
+- 1 maps to "Playback Start"
+- 2 maps to "Recording Period"
+- 3 maps to "Recording Start"
+- 4 maps to "Pause"
+- 5 maps to "Bypass"
+- 6 maps to "Limit to Rec Period"
+
 ### RumblePad 2 Pure Data UI
 
 For my own use I wrote a Pd UI through which you can control Stream Looper with

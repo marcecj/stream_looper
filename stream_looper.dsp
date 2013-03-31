@@ -11,13 +11,13 @@ x0 = 0.0;
 N  = 2<<14;
 
 // UI control elements
-Pp = vslider("Period", N, 1, N, 1):int;
-Rp = vslider("Period", N, 1, N, 1):int;
-Ps = vslider("Start", 1, 1, N, 1):-(1):smooth(0.999):+(0.5):int;
-Rs = vslider("Start", 1, 1, N, 1):-(1):smooth(0.999):+(0.5):int;
-pause  = checkbox("Pause Recording");
-bypass = checkbox("Bypass");
-limit_pp_by_rp = checkbox("Limit to Rec Period");
+Pp = vslider("Period [midi:ctrl 00]", N, 1, N, 1):int;
+Rp = vslider("Period [midi:ctrl 02]", N, 1, N, 1):int;
+Ps = vslider("Start [midi:ctrl 01]", 1, 1, N, 1):-(1):smooth(0.999):+(0.5):int;
+Rs = vslider("Start [midi:ctrl 03]", 1, 1, N, 1):-(1):smooth(0.999):+(0.5):int;
+pause  = checkbox("Pause Recording [midi:ctrl 04]");
+bypass = checkbox("Bypass [midi:ctrl 05]");
+limit_pp_by_rp = checkbox("Limit to Rec Period [midi:ctrl 06]");
 
 // UI groups
 recording_controls = hgroup("Recording", Rp, Rs);

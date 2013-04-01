@@ -114,7 +114,7 @@ The CC# to UI control mapping is:
 - 5 maps to "Bypass"
 - 6 maps to "Limit to Rec Period"
 
-### RumblePad 2 Pure Data UI
+### Logitech RumblePad &trade; 2 Pure Data UI
 
 For my own use I wrote a Pd UI through which you can control Stream Looper with
 a RumblePad 2 controller.  It has two variants:

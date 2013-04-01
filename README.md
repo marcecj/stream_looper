@@ -117,11 +117,15 @@ The CC# to UI control mapping is:
 ### RumblePad 2 Pure Data UI
 
 For my own use I wrote a Pd UI through which you can control Stream Looper with
-a RumblePad 2 controller.  You must compile Stream Looper with `faust2puredata`
-or `scons FAUST_ARCHITECTURE=puredata ...` first before you can use it.
-Technically you could also use `faust2pd`, if I understand it correctly, as the
-Pd object name stays the same, but it is superfluous for the purposes of this
-UI.
+a RumblePad 2 controller.  It has two variants:
+
+1. One that uses Stream Looper as a Pd external.  In this case, you must compile
+   Stream Looper with `faust2puredata` or `scons FAUST_ARCHITECTURE=puredata
+   ...` first before you can use it.  Technically you could also use `faust2pd`,
+   if I understand it correctly, as the Pd object name stays the same, but it is
+   superfluous for the purposes of this UI.
+2. One that communicates with Stream Looper via OSC, e.g., when compiled as a
+   stand-alone JACK application.
 
 The controller mappings are set up as follows:
 
@@ -152,7 +156,6 @@ I still want to following features:
 - Perhaps add a slider to control the amount of smoothing on the "Start" slider.
 - Add LV2 support to the build system. Until then, use the `faust2lv2` script
   that comes with FAUST.
-- Maybe create a MIDI version of the Pd UI.
 - Fix the artifacts that arise when changing the write period. Possible
   solutions (disregarding implementation):
   - set both the read and write period to maximum as long as the slider is being

@@ -82,9 +82,10 @@ Furthermore, there are three check boxes:
 
 ### OSC controls
 
-Stream Looper understands OSC thanks to FAUST's built-in support.  You can find
-the available addresses, their current values and their value range by sending a
-`get` message to the wildcard address `/stream_looper/*`, which yields:
+Stream Looper can be controlled via OSC thanks to FAUST's built-in support.  You
+can find the available addresses, their current values and their value range by
+sending a `get` message to the wildcard address `/stream_looper/*`, which
+yields:
 
     /stream_looper//Playback/Period 32768 1 32768
     /stream_looper//Playback/Start 1 1 32768
@@ -94,8 +95,8 @@ the available addresses, their current values and their value range by sending a
     /stream_looper/Limit_to_Rec_Period 1 0 1
     /stream_looper/Pause_Recording 0 0 1
 
-NOTE: the double slash for the first four addresses arise from the use of an
-unnamed `hgroup()`.
+NOTE for those who know FAUST: the double slashes in the first four addresses
+arise from the use of an unnamed `hgroup()`.
 
 ### MIDI controls
 
@@ -119,13 +120,13 @@ The CC# to UI control mapping is:
 For my own use I wrote a Pd UI through which you can control Stream Looper with
 a RumblePad 2 controller.  It has two variants:
 
-1. One that uses Stream Looper as a Pd external.  In this case, you must compile
-   Stream Looper with `faust2puredata` or `scons FAUST_ARCHITECTURE=puredata
-   ...` first before you can use it.  Technically you could also use `faust2pd`,
-   if I understand it correctly, as the Pd object name stays the same, but it is
-   superfluous for the purposes of this UI.
-2. One that communicates with Stream Looper via OSC, e.g., when compiled as a
-   stand-alone JACK application.
+1. One that uses Stream Looper as a Pd external, called `rumblepad_ui.pd`.  In
+   this case, you must compile Stream Looper with `faust2puredata` or `scons
+   FAUST_ARCHITECTURE=puredata ...` first before you can use it.  Technically
+   you could also use `faust2pd`, if I understand it correctly, as the Pd object
+   name stays the same, but it is superfluous for the purposes of this UI.
+2. One called `rumblepad_osc_ui.pd` that communicates with Stream Looper via
+   OSC, e.g., when compiled as a stand-alone JACK application.
 
 The controller mappings are set up as follows:
 

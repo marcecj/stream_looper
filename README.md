@@ -148,7 +148,7 @@ ignored by default.
 
 ## TODO
 
-I still want to following features:
+I still want the following features:
 
 - Sync to beat, in which case the "Period" slider will function in terms of bars
   or similar unit. Ideally, "Pause Recording" will wait until the bar is

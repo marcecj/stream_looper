@@ -11,18 +11,16 @@ x0 = 0.0;
 N  = 2<<14;
 
 // UI control elements
-Pp = vslider("Period [midi:ctrl 00]", N, 1, N, 1):int;
-Rp = vslider("Period [midi:ctrl 02]", N, 1, N, 1):int;
-Ps = vslider("Start [midi:ctrl 01]", 1, 1, N, 1):-(1):smooth(0.999):+(0.5):int;
-Rs = vslider("Start [midi:ctrl 03]", 1, 1, N, 1):-(1):smooth(0.999):+(0.5):int;
+sliders = hgroup("",
+    hgroup("Recording",
+           (vslider("Period [midi:ctrl 02]", N, 1, N, 1):int),
+           (vslider("Start [midi:ctrl 03]", 1, 1, N, 1):-(1):smooth(0.999):+(0.5):int)),
+    hgroup("Playback",
+           (vslider("Period [midi:ctrl 00]", N, 1, N, 1):int),
+           (vslider("Start [midi:ctrl 01]", 1, 1, N, 1):-(1):smooth(0.999):+(0.5):int)));
 pause  = checkbox("Pause Recording [midi:ctrl 04]");
 bypass = checkbox("Bypass [midi:ctrl 05]");
 limit_pp_by_rp = checkbox("Limit to Rec Period [midi:ctrl 06]");
-
-// UI groups
-recording_controls = hgroup("Recording", Rp, Rs);
-playback_controls  = hgroup("Playback", Pp, Ps);
-sliders = hgroup("", recording_controls, playback_controls);
 
 // write and read pointers
 //

@@ -163,3 +163,4 @@ I still want the following features:
     held by the mouse
   - only update the write period once the pointer is at zero again
   - ...
+  - Actually, I'm not sure anymore whether this is really a problem.

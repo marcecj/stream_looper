@@ -24,17 +24,14 @@ limit_pp_by_rp = checkbox("Limit to Rec Period [midi:ctrl 06]");
 
 diff(x) = x - x';
 
-// When either bypass or pause is switched *off*, they go from 1 to 0, so that
-// their delta value is -1, which results in "A|B==1".  Since using that value
-// would keep the counter at 1 when the effect is *in use*, it is inverted, so
-// that turning *on* bypass/pause results in S==0, and thus in sync==1.
-//
-// The short version: sync is 1 when either bypass or pause are unchecked,
-// otherwise N.
+// Sync is 1 when either bypass or pause become unchecked, otherwise N. That is:
+// when either bypass or pause is *unchecked*, their delta value is -1, which
+// results in A=0 and/or B=0, which in turn makes S=0. Otherwise the bitwise-and
+// yields S=1.
 sync = select2(S, 1, N) with {
-    A = bypass : diff : ==(-1);
-    B = pause  : diff : ==(-1);
-    S = A,B:|:!=(1);
+    A = bypass : diff : !=(-1);
+    B = pause  : diff : !=(-1);
+    S = A,B:&;
 };
 
 // write and read pointers

@@ -22,12 +22,29 @@ pause  = checkbox("Pause Recording [midi:ctrl 04]");
 bypass = checkbox("Bypass [midi:ctrl 05]");
 limit_pp_by_rp = checkbox("Limit to Rec Period [midi:ctrl 06]");
 
+diff(x) = x - x';
+
+// When either bypass or pause is switched *off*, they go from 0 to 1, so that
+// their delta value is -1, which results in "A|B==1".  Since using that value
+// would keep the counter at 1 when the effect is *in use*, it is inverted, so
+// that turning *on* bypass/pause results in S==0, and thus in sync==1.
+sync = select2(S, 1, N) with {
+    A = bypass : diff : ==(-1);
+    B = pause  : diff : ==(-1);
+    S = A,B:|:!=(1);
+};
+
 // write and read pointers
 //
 // When the "pause" checkbox is checked, the write pointer is set to N, which is
 // outside of the read pointer range. This effectively pauses recording, i.e.
 // makes the table static.
-shifted_counter(P1,P2,S) = +(1) ~ %(min(P1,P2)) : -(1) : +(S) : %(N);
+//
+// To keep the read and write pointers in sync, when either the pause or bypass
+// checkboxes are checked, "sync" is set to 1, which effectively holds the
+// (shifted) counters of both nr and nw at 1 (since 1%1==0).  This makes the
+// result of unchecking bypass or pause (as used in the Rumblepad UI) intuitive.
+shifted_counter(P1,P2,S) = +(1) ~ %(min(min(P1,P2),sync)) : -(1) : +(S) : %(N);
 nw(P,S) = pause, shifted_counter(P,P,S), N : select2;
 nr(P,S) = P, select2(limit_pp_by_rp, P, (sliders:_,!,!,!)), S : shifted_counter;
 

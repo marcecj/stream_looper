@@ -11,18 +11,20 @@ x0 = 0.0;
 N  = 2<<14;
 
 // UI control elements
-sliders = hgroup("[1]",
-    hgroup("Recording",
+sliders = hgroup("[0]",
+    vgroup("Recording",
+        hgroup("[1]",
            (vslider("Period [midi:ctrl 02]", N, 1, N, 1):int),
-           (vslider("Start [midi:ctrl 03]", 1, 1, N, 1):-(1):smooth(0.999):+(0.5):int)),
-    hgroup("Playback",
+           (vslider("Start [midi:ctrl 03]", 1, 1, N, 1):-(1):smooth(0.999):+(0.5):int))),
+    vgroup("Playback",
+        hgroup("[1]",
            (vslider("Period [midi:ctrl 00]", N, 1, N, 1):int),
-           (vslider("Start [midi:ctrl 01]", 1, 1, N, 1):-(1):smooth(0.999):+(0.5):int)));
-pointer_graphs = hgroup("[0]",
-    hbargraph("[0]Playback position", 0, N), hbargraph("[1]Recording position", 0, N));
-pause  = checkbox("[2]Pause Recording [midi:ctrl 04]");
-bypass = checkbox("[3]Bypass [midi:ctrl 05]");
-limit_pp_by_rp = checkbox("[4]Limit to Rec Period [midi:ctrl 06]");
+           (vslider("Start [midi:ctrl 01]", 1, 1, N, 1):-(1):smooth(0.999):+(0.5):int))));
+pp_graph = hbargraph("/h:[0]/v:Playback/[0]Position", 0, N);
+rp_graph = hbargraph("/h:[0]/v:Recording/[0]Position", 0, N);
+pause  = checkbox("[1]Pause Recording [midi:ctrl 04]");
+bypass = checkbox("[2]Bypass [midi:ctrl 05]");
+limit_pp_by_rp = checkbox("[3]Limit to Rec Period [midi:ctrl 06]");
 
 diff(x) = x - x';
 
@@ -54,7 +56,7 @@ nr(P,S) = P, select2(limit_pp_by_rp, P, (sliders:_,!,!,!)), S : shifted_counter;
 write_control = sliders : _,_,!,! : nw;
 play_control  = sliders : !,!,_,_ : nr;
 
-pointer_displays(x,y) = y,x:pointer_graphs:cross(2);
+pointer_displays(x,y) = y,x:pp_graph,rp_graph:cross(2);
 controls = (write_control, play_control : pointer_displays), _ : _,cross(2) ;
 
 rec_table = N+1, x0, controls : rwtable;

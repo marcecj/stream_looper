@@ -11,15 +11,10 @@ x0 = 0.0;
 N  = 2<<14;
 
 // UI control elements
-sliders = hgroup("[0]",
-    vgroup("Recording",
-        hgroup("[1]",
-           (vslider("Period [midi:ctrl 02]", N, 1, N, 1):int),
-           (vslider("Start [midi:ctrl 03]", 1, 1, N, 1):-(1):smooth(0.999):+(0.5):int))),
-    vgroup("Playback",
-        hgroup("[1]",
-           (vslider("Period [midi:ctrl 00]", N, 1, N, 1):int),
-           (vslider("Start [midi:ctrl 01]", 1, 1, N, 1):-(1):smooth(0.999):+(0.5):int))));
+Rp = vslider("/h:[0]/v:Recording/h:[1]/Period [midi:ctrl 02]", N, 1, N, 1):int;
+Pp = vslider("/h:[0]/v:Playback/h:[1]/Period [midi:ctrl 00]", N, 1, N, 1):int;
+Rs = vslider("/h:[0]/v:Recording/h:[1]/Start [midi:ctrl 03]", 1, 1, N, 1):-(1):smooth(0.999):+(0.5):int;
+Ps = vslider("/h:[0]/v:Playback/h:[1]/Start [midi:ctrl 01]", 1, 1, N, 1):-(1):smooth(0.999):+(0.5):int;
 pp_graph = hbargraph("/h:[0]/v:Playback/[0]Position", 0, N);
 rp_graph = hbargraph("/h:[0]/v:Recording/[0]Position", 0, N);
 pause  = checkbox("[1]Pause Recording [midi:ctrl 04]");
@@ -50,15 +45,11 @@ sync = select2(S, 1, N) with {
 // of unchecking bypass or pause (as used in the Rumblepad UI) intuitive.
 shifted_counter(P1,P2,S) = +(1) ~ %(min(min(P1,P2),sync)) : -(1) : +(S) : %(N);
 nw(P,S) = pause, shifted_counter(P,P,S), N : select2;
-nr(P,S) = P, select2(limit_pp_by_rp, P, (sliders:_,!,!,!)), S : shifted_counter;
+nr(P,S) = P, select2(limit_pp_by_rp, P, Rp), S : shifted_counter;
 
 // the read/write table and its controls
-write_control = sliders : _,_,!,! : nw;
-play_control  = sliders : !,!,_,_ : nr;
-
 pointer_displays(x,y) = y,x:pp_graph,rp_graph:cross(2);
-controls = (write_control, play_control : pointer_displays), _ : _,cross(2) ;
-
+controls = (nw(Rp,Rs), nr(Pp,Ps) : pointer_displays), _ : _,cross(2) ;
 rec_table = N+1, x0, controls : rwtable;
 
 // If the "bypass" checkbox is checked, the table is bypassed and the input

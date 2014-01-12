@@ -34,6 +34,9 @@ if env["osc"]:
         LIBS = ["OSCFaust", "oscpack"],
     )
 
+    if env["FAUST_VERSION"] >= 2:
+        env.Append(LIBS = ["pthread"])
+
 if env["openmp"]:
 
     env.Append(

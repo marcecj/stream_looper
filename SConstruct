@@ -31,7 +31,7 @@ if env["osc"]:
         CPPPATH = ["/usr/lib/faust"],
         LIBPATH = ["/usr/lib/faust"],
         # NOTE: The order matters!
-        LIBS = ["OSCFaust", "oscpack"],
+        LIBS = ["OSCFaust"],
     )
 
     if env["FAUST_VERSION"] >= 2:
